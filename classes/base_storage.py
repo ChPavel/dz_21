@@ -7,6 +7,7 @@ class BaseStorage(Storage):
     Базовый класс, реализующий основную логику движения товара на объекте.
     Наследуется от абстрактного класса.
     """
+
     def __init__(self, items: dict[str: int], capacity: int, commodity_shelves: int = 100):
         self.__items = items
         self.__capacity = capacity - sum([item for item in self.__items.values()])
@@ -26,30 +27,39 @@ class BaseStorage(Storage):
             raise NotEnoughSpase
 
         if self.get_free_space() >= quantity:
-            if item in self.__items:
-                self.__items[item] += quantity
-                self.__capacity -= quantity
-                return 0
-            else:
-                self.__items[item] = quantity
-                self.__capacity -= quantity
-                return 0
+            return self.__add_all_items(item, quantity)
         else:
-            if item in self.__items:
-                self.__items[item] += self.__capacity
-                remains = self.__remains(quantity)
-                self.__capacity = 0
-                return remains
-            else:
-                self.__items[item] = self.__capacity
-                remains = self.__remains(quantity)
-                self.__capacity = 0
-                return remains
-        # Вариант с разбора:
-        # if item in self.__items:
-        #     self.__items[item] += quantity
-        # else:
-        #     self.__items[item] = quantity
+            return self.__add_part_items(item, quantity)
+
+    def __add_all_items(self, item: str, quantity: int) -> int:
+        """
+        Вспомогательный метод для метода "add", принимает и возвращает те же параметры и данные.
+        Добавляет все поставленные товары с учётом ассортимента, уменьшая место на объекте.
+        """
+        if item in self.__items:
+            self.__items[item] += quantity
+            self.__capacity -= quantity
+            return 0
+        else:
+            self.__items[item] = quantity
+            self.__capacity -= quantity
+            return 0
+
+    def __add_part_items(self, item: str, quantity: int) -> int:
+        """
+        Вспомогательный метод для метода "add", принимает и возвращает те же параметры и данные.
+        Добавляет часть поставленных товаров с учётом ассортимента, уменьшая место на объекте.
+        """
+        if item in self.__items:
+            self.__items[item] += self.__capacity
+            remains = self.__remains(quantity)
+            self.__capacity = 0
+            return remains
+        else:
+            self.__items[item] = self.__capacity
+            remains = self.__remains(quantity)
+            self.__capacity = 0
+            return remains
 
     def remove(self, item: str, quantity: int) -> int:
         """
@@ -62,23 +72,33 @@ class BaseStorage(Storage):
             raise NotEnoughProduct
 
         if self.__items[item] >= quantity:
-            self.__items[item] -= quantity
-            if self.__items[item] == 0:
-                self.__items.pop(item)
-            self.__capacity += quantity
-            return 0
+            return self.__remove_all_items(item, quantity)
         else:
-            self.__capacity += self.__items[item]
-            shortage = self.__shortage(quantity, item)
-            self.shortage = shortage
+            return self.__remove_part_items(item, quantity)
+
+    def __remove_all_items(self, item: str, quantity: int) -> int:
+        """
+        Вспомогательный метод для метода "remove", принимает и возвращает те же параметры и данные.
+        Уменьшает количество товара в соответствии с запросом, добавляя место на объекте и если
+        израсходован весь товарный остаток - удаляет позицию ассортимента.
+        """
+        self.__items[item] -= quantity
+        if self.__items[item] == 0:
             self.__items.pop(item)
-            return shortage
-        # Вариант с разбора:
-        # if item not in self.__items or self.__items[item] < quantity:
-        #     raise NotEnoughProduct
-        # self.__items[item] -= quantity
-        # if self.__items[item] == 0:
-        #     self.__items.pop(item)
+        self.__capacity += quantity
+        return 0
+
+    def __remove_part_items(self, item: str, quantity: int) -> int:
+        """
+        Вспомогательный метод для метода "remove", принимает и возвращает те же параметры и данные.
+        Уменьшает количество товара до нуля, удаляя позицию ассортимента, добавляя место на объекте
+        и фиксируя не удовлетворённую часть запрошенного товара.
+        """
+        self.__capacity += self.__items[item]
+        shortage = self.__shortage(quantity, item)
+        self.shortage = shortage
+        self.__items.pop(item)
+        return shortage
 
     def get_free_space(self) -> int:
         """
@@ -86,11 +106,6 @@ class BaseStorage(Storage):
         :return: число свободных мест -> int.
         """
         return self.__capacity
-        # # Вариант с разбора:
-        # current_space = 0
-        # for value in self.__items.values():
-        #     current_space += value
-        # return self.__capacity - current_space
 
     def get_items(self) -> dict[str: int]:
         """

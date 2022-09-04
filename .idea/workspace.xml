@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="875eebe1-aff3-4964-a5a7-64268b4c6714" name="Changes" comment="На конец то!" />
+    <list default="true" id="875eebe1-aff3-4964-a5a7-64268b4c6714" name="Changes" comment="Добавил зависимости.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/base_storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/base_storage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/courier.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/courier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/store.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/store.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -90,7 +96,9 @@
       <option name="presentableId" value="Default" />
       <updated>1661824393658</updated>
       <workItem from="1661824394997" duration="52486000" />
-      <workItem from="1661909604367" duration="12291000" />
+      <workItem from="1661909604367" duration="12967000" />
+      <workItem from="1661927421733" duration="9000" />
+      <workItem from="1662176828213" duration="14097000" />
     </task>
     <task id="LOCAL-00001" summary="На конец то!">
       <created>1661921710719</created>
@@ -106,7 +114,21 @@
       <option name="project" value="LOCAL" />
       <updated>1661921935007</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Добавил зависимости.">
+      <created>1661922199497</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1661922199497</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Добавил зависимости.">
+      <created>1661922234058</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1661922234058</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,9 +147,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="На конец то!" />
-    <option name="LAST_COMMIT_MESSAGE" value="На конец то!" />
+    <MESSAGE value="Добавил зависимости." />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавил зависимости." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/dz_21$main.coverage" NAME="main Coverage Results" MODIFIED="1661921095729" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/dz_21$main.coverage" NAME="main Coverage Results" MODIFIED="1662306657817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

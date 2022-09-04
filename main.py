@@ -27,17 +27,39 @@ storages = {
 }
 
 
+def in_storages_now():
+    for name in storages:
+        print(f'Сейчас в {name}:\n {storages[name].get_items()}')
+
+
+def user_says():
+    return input(
+        'Введите запрос, соблюдая единственное число, в формате "Доставить 3 печенька из склад в магазин"\n'
+        'Введите "стоп" или "stop", если хотите выйти из программы:\n'
+    )
+
+
+def courier_in_business(request):
+    courier = Courier(request, storages)
+
+    try:
+        courier.move()
+    except BaseError as e:
+        if e.message == 'В пункте назначения не приняли товар, так как превышен ассортимент.':
+            print(e.message)
+            courier.again_the_authorities_messed_up()
+            return 'continue'
+        print(e.message)
+        return 'continue'
+
+
 def main():
     print('\nПривет!\n')
 
     while True:
-        for name in storages:
-            print(f'Сейчас в {name}:\n {storages[name].get_items()}')
+        in_storages_now()
 
-        user_input = input(
-            'Введите запрос, соблюдая единственное число, в формате "Доставить 3 печенька из склад в магазин"\n'
-            'Введите "стоп" или "stop", если хотите выйти из программы:\n'
-        )
+        user_input = user_says()
         if user_input in ("стоп", "stop"):
             break
 
@@ -47,16 +69,7 @@ def main():
             print(e.message)
             continue
 
-        courier = Courier(request, storages)
-
-        try:
-            courier.move()
-        except BaseError as e:
-            if e.message == 'В пункте назначения не приняли товар, так как превышен ассортимент.':
-                print(e.message)
-                courier.again_the_authorities_messed_up()
-                continue
-            print(e.message)
+        if courier_in_business(request) == 'continue':
             continue
 
 
